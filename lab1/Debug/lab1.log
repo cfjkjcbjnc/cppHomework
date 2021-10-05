@@ -1,0 +1,6 @@
+﻿  xuesheng.cpp
+D:\编程专用\lab1\lab1\xuesheng.cpp(161): warning C4172: 返回局部变量或临时变量的地址: p
+D:\编程专用\lab1\lab1\xuesheng.cpp(173): warning C4172: 返回局部变量或临时变量的地址: p
+D:\编程专用\lab1\lab1\xuesheng.cpp(176): warning C4172: 返回局部变量或临时变量的地址: p
+D:\编程专用\lab1\lab1\xuesheng.cpp(166): warning C4172: 返回局部变量或临时变量的地址: p
+  lab1.vcxproj -> D:\编程专用\lab1\Debug\lab1.exe
