@@ -1,8 +1,11 @@
 #include"MyString.h"
 #include<string>
+#include<iostream>
+using namespace std;
 myString::myString()
 {
 	m_pbuf = new char('\0');
+	cout << "调用默认构造函数" << endl;
 }
 
 myString::myString(const char* p)
@@ -14,6 +17,7 @@ myString::myString(const char* p)
 		m_pbuf = new char[strlen(p) + 1];
 		strcpy_s(m_pbuf, strlen(p) + 1, p);
 	}
+	cout << "调用有参构造函数" << endl;
 	//set_string(p);
 }
 
@@ -27,6 +31,7 @@ myString::myString(const myString& S)
 myString::~myString()
 {
 	delete[]m_pbuf;
+	//cout << "析构" << endl;
 }
 
 const char* myString::get_string()
@@ -60,7 +65,44 @@ const char* myString::append(const char* p)
 	return m_pbuf;
 }
 
-int myString::get_lenth()
+myString& myString::append(myString& S)
+{
+	int len = strlen(m_pbuf) + S.get_length() + 1;
+	char* tmp = new char[len];
+	sprintf_s(tmp, len, "%s%s", m_pbuf, S.m_pbuf);
+	delete[] m_pbuf;
+	m_pbuf = tmp;
+	return*this;
+}
+
+myString& myString::operator=(const myString& S)
+{
+	if (this != &S) {
+		int len = strlen(S.m_pbuf);
+		delete this->m_pbuf;
+		this->m_pbuf = new char[len + 1];
+		strcpy_s(this->m_pbuf, len+1, S.m_pbuf);
+	}
+	return *this;
+}
+
+int myString::get_length()
 {
 	return strlen(m_pbuf);
+}
+void test1() {
+	myString str;
+	str.set_string("I love C++, ");
+	cout << "字符串长度：" << str.get_length() << "\t" << str.get_string() << endl;
+	str.append("yeah!");
+	cout << "字符串长度：" << str.get_length() << "\t" << str.get_string() << endl;
+	{
+		myString str("I like C++ programming!");
+		myString str2(str), str3 = str;
+	}
+	myString str2;
+	cout << str.get_string() << endl;
+	str2 = str;
+	str2.append(str2);
+	cout << str2.get_string() << endl;
 }

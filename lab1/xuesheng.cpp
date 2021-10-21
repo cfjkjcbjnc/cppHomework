@@ -12,12 +12,7 @@ namespace N20281272 {
 
 	CStudentList::CStudentList(const student& stu)
 	{
-		head_stu = new student;
-		head_stu->number = stu.number;
-		head_stu->score = stu.score;
-		strcpy_s(head_stu->major, 20, stu.major);
-		strcpy_s(head_stu->name, 20, stu.name);
-		head_stu->next = NULL;
+		head_stu = new student(stu);
 		tail_stu = head_stu;
 		ncount=1;
 	}
@@ -31,7 +26,7 @@ namespace N20281272 {
 		ncount = 0;
 		for (i = 0; i < stu.ncount; i++) {
 			add_student(*p);
-			p = p->next;
+			p = p->getNext();
 		}
 	}
 
@@ -43,7 +38,7 @@ namespace N20281272 {
 			//删除原来的链表
 			for (i = 0; i < ncount; i++) {
 				p = head_stu;
-				head_stu = head_stu->next;
+				head_stu = head_stu->getNext();
 				delete p;
 			}
 			head_stu = NULL;
@@ -52,7 +47,7 @@ namespace N20281272 {
 			p = stu.head_stu;
 			for (i = 0; i < stu.ncount; i++) {
 				this->add_student(*p);
-				p = p->next;
+				p = p->getNext();
 			}
 		}
 		return *this;
@@ -64,8 +59,8 @@ namespace N20281272 {
 		student* p = head_stu;
 		for (i = 0; i < ncount; i++) {
 			p = head_stu;
-			head_stu = head_stu->next;
-			cout << p->score << endl;			
+			head_stu = head_stu->getNext();
+			cout << p->getScore() << endl;			
 			delete p;
 
 		}
@@ -74,24 +69,15 @@ namespace N20281272 {
 	void CStudentList::add_student(student stu) {
 		student* p;
 		if (ncount == 0) {
-			head_stu = new student;
-			strcpy_s(head_stu->major, stu.major);
-			strcpy_s(head_stu->name, stu.name);
-			head_stu->next = NULL;
-			head_stu->number = stu.number;
-			head_stu->score = stu.score;
+			head_stu = new student(stu);
 			tail_stu = head_stu;
 			ncount++;
 		}
 		else {
-			p = new student;
-			strcpy_s(p->major, stu.major);
-			strcpy_s(p->name, stu.name);
-			p->next = NULL;
-			p->number = stu.number;
-			p->score = stu.score;
-			tail_stu->next = p;
-			tail_stu = tail_stu->next;
+			p = new student(stu);
+			//修改尾指针
+			tail_stu->getNext() = p;
+			tail_stu = tail_stu->getNext();
 			ncount++;
 		}
 	}
@@ -101,8 +87,8 @@ namespace N20281272 {
 		student* p = head_stu;
 		cout << "学号\t姓名\t专业\t成绩" << endl;
 		for (i = 0; i < ncount; i++) {
-			cout << p->number << "\t" << p->name << "\t" << p->major << "\t" << p->score << endl;
-			p = p->next;
+			cout << p->getNumber() << "\t" << p->getName() << "\t" << p->getMajor() << "\t" << p->getScore() << endl;
+			p = p->getNext();
 		}
 	}
 
@@ -111,9 +97,9 @@ namespace N20281272 {
 		student* p = head_stu;
 		cout << "学号\t姓名\t专业\t成绩" << endl;
 		for (i = 0; i < ncount; i++) {
-			if (p->score <= high && p->score >= low)
-				cout << p->number << "\t" << p->name << "\t" << p->major << "\t" << p->score << endl;
-			p = p->next;
+			if (p->getScore() <= high && p->getScore() >= low)
+				cout << p->getNumber() << "\t" << p->getName() << "\t" << p->getMajor() << "\t" << p->getScore() << endl;
+			p = p->getNext();
 		}
 	}
 
@@ -121,9 +107,9 @@ namespace N20281272 {
 		int i;
 		student* p, * q;
 		if (head_stu != NULL) {
-			if (head_stu->number == number) {
+			if (head_stu->getNumber() == number) {
 				p = head_stu;
-				head_stu = head_stu->next;
+				head_stu = head_stu->getNext();
 				delete p;
 				ncount--;
 				return;
@@ -131,10 +117,10 @@ namespace N20281272 {
 			else {
 				for (i = 0, p = head_stu; i < ncount; i++) {
 					q = p;
-					p = p->next;
-					if (p->number == number) {
+					p = p->getNext();
+					if (p->getNumber() == number) {
 						if (p != tail_stu) {
-							q->next = p->next;
+							q->getNext() = p->getNext();
 							delete p;
 							ncount--;
 							return;
@@ -157,9 +143,9 @@ namespace N20281272 {
 		student* p=head_stu;
 		int i;
 		for (i = 0; i < ncount; i++) {
-			if (!strcmp(p->name, name))
+			if (!strcmp(p->getName(), name))
 				return p;
-
+			p = p->getNext();
 		}
 		p = NULL;
 		cout << "没有找到学生" << endl;
@@ -172,8 +158,59 @@ namespace N20281272 {
 		if (p == NULL) {
 			return p;
 		}
-		p->score = score;
+		p->modifyScore(score);
 		return p;
+	}
+
+	//student类
+
+	student::student()
+	{
+		number = 0;
+		score = 0;
+		next = NULL;
+	}
+
+	//student::student(long number2, const char* name2, const char* major2, double score2, student* next2):name(name2),major(major2)
+	//{
+	//	number = number2;
+	//	name.set_string(major2);
+	//	major.set_string(major2);
+	//	score = score2;
+	//	next = next2;
+	//}
+
+
+	student::student(const student& stu)
+	{
+		number = stu.number;
+		name = stu.name;
+		major = stu.major;
+		score = stu.score;
+		next = stu.next;
+	}
+
+	void student::fixpointer(student* p)
+	{
+		next = p;
+	}
+
+	student& student::modifyScore(double SCORE)
+	{
+		score = SCORE;
+		return *this;
+	}
+
+	student& student::operator=(const student& stu)
+	{
+		if (this != &stu) {
+			number = stu.number;
+			major = stu.major;
+			name = stu.name;
+			score = stu.score;
+			next = stu.next;
+		}
+		return *this;
 	}
 
 }

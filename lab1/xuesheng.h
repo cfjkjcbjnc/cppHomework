@@ -1,9 +1,26 @@
 #pragma once
+
+#include"mystring.h"
 namespace N20281272 {
-	struct student {
+
+	class student {
+	public:
+		student();
+		student(long number2, const char* name2, const char* major2, double score2, student* next2) : number(number2), name(name2), major(major2), score(score2), next(next2) {}
+		student(const student& stu);
+		void fixpointer(student* p);
+		student*& getNext() { return next; }
+		long getNumber() { return number; }
+		const char* getName() { return name.get_string(); }
+		const char* getMajor() { return major.get_string(); }
+		double getScore() { return score; }
+		student& modifyScore(double SCORE);
+		student& operator=(const student& stu);
+		//~student();
+	private:
 		long number;
-		char name[20];
-		char major[20];
+		myString name;
+		myString major;
 		double score;
 		student* next;
 	};
