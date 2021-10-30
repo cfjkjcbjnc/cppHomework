@@ -2,10 +2,12 @@
 #include<string>
 #include<iostream>
 using namespace std;
+int myString::count = 0;
 myString::myString()
 {
 	m_pbuf = new char('\0');
-	cout << "调用默认构造函数" << endl;
+	count++;
+	//cout << "调用默认构造函数" << endl;
 }
 
 myString::myString(const char* p)
@@ -17,7 +19,8 @@ myString::myString(const char* p)
 		m_pbuf = new char[strlen(p) + 1];
 		strcpy_s(m_pbuf, strlen(p) + 1, p);
 	}
-	cout << "调用有参构造函数" << endl;
+	count++;
+	//cout << "调用有参构造函数" << endl;
 	//set_string(p);
 }
 
@@ -26,15 +29,17 @@ myString::myString(const myString& S)
 	int len = strlen(S.m_pbuf) + 1;
 	m_pbuf = new char[len];
 	strcpy_s(m_pbuf, len, S.m_pbuf);
+	count++;
 }
 
 myString::~myString()
 {
 	delete[]m_pbuf;
+	count--;
 	//cout << "析构" << endl;
 }
 
-const char* myString::get_string()
+const char* myString::get_string() const
 {
 	return m_pbuf;
 }
@@ -44,12 +49,12 @@ const char* myString::set_string(const char* p)
 	char* tmp = m_pbuf;
 	if (p == NULL) {
 		m_pbuf = new char('\0');
-		delete tmp;
+		delete[]tmp;
 	}
 	else {
 		m_pbuf = new char[strlen(p) + 1];
 		strcpy_s(m_pbuf, strlen(p) + 1, p);
-		delete tmp;
+		delete[]tmp;
 	}
 	return m_pbuf;
 }
@@ -61,7 +66,7 @@ const char* myString::append(const char* p)
 	int length = strlen(m_pbuf) + strlen(p) + 1;
 	m_pbuf = new char[length];
 	sprintf_s(m_pbuf, length, "%s%s", tmp, p);
-	delete tmp;
+	delete[]tmp;
 	return m_pbuf;
 }
 
@@ -79,14 +84,14 @@ myString& myString::operator=(const myString& S)
 {
 	if (this != &S) {
 		int len = strlen(S.m_pbuf);
-		delete this->m_pbuf;
+		delete[]m_pbuf;
 		this->m_pbuf = new char[len + 1];
 		strcpy_s(this->m_pbuf, len+1, S.m_pbuf);
 	}
 	return *this;
 }
 
-int myString::get_length()
+int myString::get_length() const
 {
 	return strlen(m_pbuf);
 }
