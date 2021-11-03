@@ -1,11 +1,4 @@
 ﻿  main.cpp
 D:\编程专用\lab1\lab1\mystring.h(3,9): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
-D:\编程专用\lab1\lab1\main.cpp(75,7): warning C4101: “bzzb”: 未引用的局部变量
-  xuesheng.cpp
-D:\编程专用\lab1\lab1\mystring.h(3,9): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
-  正在生成代码...
-D:\编程专用\lab1\lab1\xuesheng.cpp(157): warning C4172: 返回局部变量或临时变量的地址: p
-D:\编程专用\lab1\lab1\xuesheng.cpp(169): warning C4172: 返回局部变量或临时变量的地址: p
-D:\编程专用\lab1\lab1\xuesheng.cpp(162): warning C4172: 返回局部变量或临时变量的地址: p
-D:\编程专用\lab1\lab1\xuesheng.cpp(172): warning C4172: 返回局部变量或临时变量的地址: p
+D:\编程专用\lab1\lab1\main.cpp(74,7): warning C4101: “bzzb”: 未引用的局部变量
   lab1.vcxproj -> D:\编程专用\lab1\Debug\lab1.exe

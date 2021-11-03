@@ -24,18 +24,12 @@
     <ClCompile Include="mystring.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="pool.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="xuesheng.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="mystring.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="pool.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -344,4 +344,29 @@ namespace N20281272 {
 		return *this;
 	}
 
+	CAssociation CAssociation::operator+(const CAssociation& a)
+	{
+		CAssociation tmp(*this);
+		CNode_Association* p = a.head;
+		int i;
+		for (i = 0; i < a.count; ++i) {
+			tmp.add(p->pstu);
+			p = p->next;
+		}
+		return tmp;
+	}
+
+	student& CAssociation::operator[](const int idx)
+	{
+		if (idx >= count || idx < 0) {
+			exit(1);
+		}
+		int i;
+		CNode_Association* p = head;
+		for (i = 0; i < idx; ++i) {
+			p = p->next;
+		}
+		return *p->pstu;
+	}
+
 }

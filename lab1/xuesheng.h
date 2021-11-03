@@ -69,6 +69,8 @@ namespace N20281272 {
 		void show()const;
 		void del(long number);
 		CAssociation& operator=(const CAssociation& a);
+		CAssociation operator+(const CAssociation& a);
+		student& operator[](const int idx);
 	private:
 		myString name;
 		CNode_Association* head;

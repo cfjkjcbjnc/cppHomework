@@ -1,7 +1,6 @@
 #include<iostream>
 #include"xuesheng.h"
 #include"mystring.h"
-#include"pool.h"
 using namespace N20281272;
 using namespace std;
 class CAPP {
@@ -75,6 +74,11 @@ int main() {
 	CAPP bzzb;
 	//bzzb.run1();
 	//test1();
+	myString s1("hello "), s2("world!");
+	const myString s3 = s1 + s2; //对象s3内容为"hello world!"，对象s1和s2不变
+	s1 = s1 + "world!";   //对象s1的内容为"hello world!"
+	cout << s1[0] << s3[1] << endl;//输出为"he"
+	s1("I love C++, yeah!");   //对象s1内容为"I love C++, yeah!"
 	return 0;
 }
 

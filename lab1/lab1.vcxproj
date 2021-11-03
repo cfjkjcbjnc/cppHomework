@@ -141,12 +141,10 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mystring.cpp" />
-    <ClCompile Include="pool.cpp" />
     <ClCompile Include="xuesheng.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mystring.h" />
-    <ClInclude Include="pool.h" />
     <ClInclude Include="xuesheng.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

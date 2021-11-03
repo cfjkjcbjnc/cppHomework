@@ -70,7 +70,7 @@ const char* myString::append(const char* p)
 	return m_pbuf;
 }
 
-myString& myString::append(myString& S)
+myString& myString::append(const myString& S)
 {
 	int len = strlen(m_pbuf) + S.get_length() + 1;
 	char* tmp = new char[len];
@@ -91,10 +91,53 @@ myString& myString::operator=(const myString& S)
 	return *this;
 }
 
+myString& myString::operator=(const char* str)
+{
+	
+	set_string(str);
+	return *this;
+}
+
 int myString::get_length() const
 {
 	return strlen(m_pbuf);
 }
+myString myString::operator+(const myString& S)
+{
+	myString tmp(*this);
+	tmp.append(S);
+	return tmp;
+}
+
+myString myString::operator+(const char* str)
+{
+	myString tmp(m_pbuf);
+	tmp.append(str);
+	return tmp;
+}
+
+char& myString::operator[](const int idx)
+{
+	if (idx >= strlen(m_pbuf)) {
+		exit(1);
+	}
+	return m_pbuf[idx];
+}
+
+const char myString::operator[](const int idx) const
+{
+	if (idx >= strlen(m_pbuf)) {
+		exit(1);
+	}
+	return m_pbuf[idx];
+}
+
+myString& myString::operator()(const char* str)
+{
+	set_string(str);
+	return *this;
+}
+
 void test1() {
 	myString str;
 	str.set_string("I love C++, ");
