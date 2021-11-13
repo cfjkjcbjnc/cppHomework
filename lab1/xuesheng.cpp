@@ -172,6 +172,61 @@ namespace N20281272 {
 		return p;
 	}
 
+	CStudentList& CStudentList::read_txt(istream& in)
+	{
+		clear();
+		int sum;
+		in >> sum;
+		student t;
+		for (int i = 0; i < sum; i++) {
+			t.read_txt(in);
+			add_student(t);
+		}
+		return*this;
+	}
+
+	CStudentList& CStudentList::read_bin(istream& in)
+	{
+		clear();
+		int sum;
+		student t;
+		in.read((char*)&sum, sizeof(int));
+		for (int i = 0; i < sum; i++) {
+			t.read_bin(in);
+			add_student(t);
+
+		}
+		return *this;
+	}
+
+	void CStudentList::write_txt(ostream& o)
+	{
+		o << *this;
+	}
+
+	void CStudentList::write_bin(ostream& o)
+	{
+		student* p = head_stu;
+		o.write((char*)&ncount, sizeof(int));
+		for (int i = 0; i < ncount; i++) {
+			p->write_bin(o);
+			p = p->next;
+		}
+	}
+
+	void CStudentList::clear()
+	{
+		student* p = head_stu;
+		for (int i = 0; i < ncount; i++) {
+			head_stu = head_stu->next;
+			delete(p);
+			p = head_stu;
+		}
+		head_stu = NULL;
+		tail_stu = NULL;
+		ncount = 0;
+	}
+
 	//studentÀà
 
 	student::student()
@@ -228,6 +283,37 @@ namespace N20281272 {
 	void student::display() const
 	{
 		cout << number << '\t' << name.get_string() << '\t' << major.get_string() << '\t' << score << endl;
+	}
+
+	student& student::read_txt(istream& in)
+	{
+		in >> number;
+		in >> name;
+		in >> major;
+		in >> score;
+		return *this;
+	}
+
+	student& student::read_bin(istream& in)
+	{
+		in.read((char*)&number, sizeof(long));
+		name.read_bin(in);
+		major.read_bin(in);
+		in.read((char*)&score, sizeof(double));
+		return *this;
+	}
+
+	void student::write_txt(ostream& o)
+	{
+		o << *this;
+	}
+
+	void student::write_bin(ostream& o)
+	{
+		o.write((char*)&number, sizeof(long));
+		name.write_bin(o);
+		major.write_bin(o);
+		o.write((char*)&score, sizeof(double));
 	}
 
 	CAssociation::~CAssociation()
@@ -369,4 +455,29 @@ namespace N20281272 {
 		return *p->pstu;
 	}
 
+	ostream& operator<<(ostream& o, const student& s)
+	{
+		o << s.number << " " << s.name << " " << s.major << " " << s.score;
+
+		return o;
+	}
+
+	istream& operator>>(istream& in, student& s)
+	{
+		
+		return in;
+	}
+
+	ostream& operator<<(ostream& o, const CStudentList& s)
+	{
+		student* p=s.head_stu;
+		o << s.ncount << endl;
+		for (int i = 0; i < s.ncount; i++) {
+			o << *p;
+			o << endl;
+			p = p->getNext();
+		}
+		return o;
+	}
+	
 }

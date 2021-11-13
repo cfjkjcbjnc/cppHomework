@@ -138,6 +138,59 @@ myString& myString::operator()(const char* str)
 	return *this;
 }
 
+myString& myString::read_txt(istream& in)
+{
+	delete[]m_pbuf;
+	int len;
+	in >> len;
+	m_pbuf = new char[len + 1];
+	in.get();
+	in.read(m_pbuf, len);
+	m_pbuf[len] = '\0';
+	return *this;
+}
+
+myString& myString::read_bin(istream& in)
+{
+	delete[]m_pbuf;
+	int len;
+	in.read((char*)&len, sizeof(int));
+	m_pbuf = new char[len + 1];
+	in.read(m_pbuf, len);
+	m_pbuf[len] = '\0';
+	return*this;
+}
+
+void myString::write_txt(ostream& o)
+{
+	o << *this;
+}
+
+void myString::write_bin(ostream& o)
+{
+	int len = strlen(m_pbuf);
+	o.write((char*)&len, sizeof(int));
+	o.write(m_pbuf, len);
+}
+
+ostream& operator<<(ostream& o, const myString& s)
+{
+	o << s.get_length() << " " << s.m_pbuf;
+	return o;
+}
+
+istream& operator>>(istream& in, myString& s)
+{
+	int len;
+	char* str;
+	in >> len;
+	str = new char[len + 1];
+	in >> str;
+	str[len] = '\0';
+	s.set_string(str);
+	return in;
+}
+
 void test1() {
 	myString str;
 	str.set_string("I love C++, ");

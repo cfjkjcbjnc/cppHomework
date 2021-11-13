@@ -19,7 +19,13 @@ namespace N20281272 {
 		student& modifyScore(double SCORE);
 		student& operator=(const student& stu);
 		void display()const;
-		//~student();
+		//~student();	
+		friend ostream& operator<<(ostream& o, const student& s);
+		friend istream& operator>>(istream& in, student& s);
+		student& read_txt(istream& in);
+		student& read_bin(istream& in);
+		void write_txt(ostream& o);
+		void write_bin(ostream& o);
 	private:
 		long number;
 		myString name;
@@ -43,6 +49,12 @@ namespace N20281272 {
 		student* get(long number);
 		student*& getByName(const char*name);
 		student*& modifyScore(const char* name, double score);
+		friend ostream& operator<<(ostream& o, const CStudentList& s);
+		CStudentList& read_txt(istream& in);
+		CStudentList& read_bin(istream& in);
+		void write_txt(ostream& o);
+		void write_bin(ostream& o);
+		void clear();
 	private:
 		student* head_stu;
 		student* tail_stu;

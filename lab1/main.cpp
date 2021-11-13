@@ -1,4 +1,5 @@
 #include<iostream>
+#include<fstream>
 #include"xuesheng.h"
 #include"mystring.h"
 using namespace N20281272;
@@ -22,6 +23,8 @@ public:
 			cout << "3 删除学生信息" << endl;
 			cout << "4 显示某一成绩范围的学生信息" << endl;
 			cout << "5 通过名字更改学生成绩" << endl;
+			cout << "6 将学生信息写入文件" << endl;
+			cout << "7 将文件的学生信息读入" << endl;
 			cout << "0 退出系统" << endl;
 			cout << "请选择操作" << endl;
 			cin >> c;
@@ -41,6 +44,7 @@ public:
 			case'2':
 				a.display();
 				//b.show();
+				//cout << a;
 				cout << endl;
 				break;
 			case'3':
@@ -60,6 +64,24 @@ public:
 				cin >> str >> score;
 				a.modifyScore(str, score);
 			}
+			case'6':
+			{
+				ofstream out1("test.txt");
+				ofstream out2("test.dat");
+				a.write_bin(out2);
+				a.write_txt(out1);
+				out1.close();
+				out2.close();
+			}
+			case'7':
+			{
+			//	ifstream in1("test.txt");
+			//	a.read_txt(in1);
+			//	in1.close();
+				ifstream in2("test.dat");
+				a.read_bin(in2);
+				in2.close();
+			}
 			case'0':
 				break;
 			default:
@@ -69,16 +91,32 @@ public:
 		}
 	}
 };
+bool testMyStringIO()
+{
+	myString str("I love C++ programming!"), str2("haha");
+	ofstream out("MyString.txt");
+	out << str; out.close();
+	ifstream in("MyString.txt"); str2.read_txt(in); in.close();
+	if (strcmp(str2.get_string(), str.get_string()) != 0) return false;
+	out.open("MyString.txt");
+	str.write_txt(out);
+	out.close(); in.open("MyString.txt"); str2.read_txt(in); in.close(); if (strcmp(str2.get_string(), str.get_string()) != 0) return false;
+	out.open("MyString.dat");
+	str.write_bin(out);
+	out.close();
+	in.open("MyString.dat");
+	str2.read_bin(in);
+	in.close();
+	if (strcmp(str2.get_string(), str.get_string()) != 0)
+		return false;
+	return true;
+}
 
 int main() {
 	CAPP bzzb;
-	//bzzb.run1();
-	//test1();
-	myString s1("hello "), s2("world!");
-	const myString s3 = s1 + s2; //对象s3内容为"hello world!"，对象s1和s2不变
-	s1 = s1 + "world!";   //对象s1的内容为"hello world!"
-	cout << s1[0] << s3[1] << endl;//输出为"he"
-	s1("I love C++, yeah!");   //对象s1内容为"I love C++, yeah!"
+	int i;
+	bzzb.run1();
+	//if (testMyStringIO())cout << "MyString IO OK" << endl; else cout << "MyString IO failed" << endl;
 	return 0;
 }
 
