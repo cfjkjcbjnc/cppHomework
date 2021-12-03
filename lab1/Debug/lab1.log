@@ -1,4 +1,9 @@
 ﻿  main.cpp
 D:\编程专用\cppHomework\lab1\mystring.h(3,9): warning C4067: 预处理器指令后有意外标记 - 应输入换行符
-D:\编程专用\cppHomework\lab1\main.cpp(117,6): warning C4101: “i”: 未引用的局部变量
+D:\编程专用\cppHomework\lab1\main.cpp(110,8): warning C4101: “name”: 未引用的局部变量
+D:\编程专用\cppHomework\lab1\main.cpp(113,8): warning C4101: “number”: 未引用的局部变量
+D:\编程专用\cppHomework\lab1\main.cpp(112,8): warning C4101: “teacher”: 未引用的局部变量
+D:\编程专用\cppHomework\lab1\main.cpp(111,8): warning C4101: “major”: 未引用的局部变量
+D:\编程专用\cppHomework\lab1\main.cpp(109,8): warning C4101: “str”: 未引用的局部变量
+D:\编程专用\cppHomework\lab1\main.cpp(160,6): warning C4101: “i”: 未引用的局部变量
   lab1.vcxproj -> D:\编程专用\cppHomework\Debug\lab1.exe

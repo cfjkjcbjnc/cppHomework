@@ -24,12 +24,18 @@
     <ClCompile Include="mystring.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="studentlist.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="xuesheng.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="mystring.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="studentlist.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

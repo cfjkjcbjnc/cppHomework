@@ -2,7 +2,8 @@
 #include<fstream>
 #include"xuesheng.h"
 #include"mystring.h"
-using namespace N20281272;
+#include"studentlist.h"
+
 using namespace std;
 class CAPP {
 public:
@@ -12,6 +13,7 @@ public:
 		char str[20];
 		char name[20];
 		char major[20];
+		char teacher[20];
 		long number;
 		double low, high, score;
 		CStudentList a;
@@ -25,6 +27,7 @@ public:
 			cout << "5 通过名字更改学生成绩" << endl;
 			cout << "6 将学生信息写入文件" << endl;
 			cout << "7 将文件的学生信息读入" << endl;
+			cout << "8 录入研究生信息" << endl;
 			cout << "0 退出系统" << endl;
 			cout << "请选择操作" << endl;
 			cin >> c;
@@ -35,9 +38,9 @@ public:
 				cout << "请依次输入学号、姓名、专业和成绩" << endl;
 				cin >> number >> name >> major >> score;
 				student temp(number, name, major, score, NULL, 0);
-				a.add_student(temp);
-				b.add(a.get(number));
-				b.show();
+				a.add_student(&temp);
+				//b.add(a.get(number));
+				//b.show();
 				cout << endl;
 				break;
 			}
@@ -72,6 +75,7 @@ public:
 				a.write_txt(out1);
 				out1.close();
 				out2.close();
+				break;
 			}
 			case'7':
 			{
@@ -81,6 +85,16 @@ public:
 				ifstream in2("test.dat");
 				a.read_bin(in2);
 				in2.close();
+				break;
+			}
+			case '8':
+			{
+				cout << "请依次输入学号、姓名、专业、成绩和导师" << endl;
+				cin >> number >> name >> major >> score >> teacher;
+				CGraduate t1(number, name, major, score, NULL, 0, teacher);
+				a.add_student(&t1);
+				//a.display();
+				break;
 			}
 			case'0':
 				break;
@@ -89,6 +103,36 @@ public:
 				break;
 			}
 		}
+	}
+	void test1() {
+		CStudentList a;
+		char str[20];
+		char name[20];
+		char major[20];
+		char teacher[20];
+		long number;
+		ifstream in2("test.dat");
+		a.read_bin(in2);
+		in2.close();
+		CAssociation b("bzzb");
+		int i;
+		for (i = 0; i < a.ncount; i++) {
+			b.add(a[i]);
+		}
+		b.show();
+		ofstream out1("bzzb.txt");
+		ofstream out2("bzzb.dat");
+		b.write_txt(out1);
+		//out1.close();
+		b.write_bin(out2);
+		out2.close();
+		CAssociation c("ff");
+		ifstream in1("bzzb.txt");
+		c.read_txt(in1);
+		c.show();
+		ifstream in3("bzzb.dat");
+		c.read_bin(in3);
+		c.show();
 	}
 };
 bool testMyStringIO()
@@ -111,12 +155,11 @@ bool testMyStringIO()
 		return false;
 	return true;
 }
-
 int main() {
 	CAPP bzzb;
 	int i;
-	bzzb.run1();
-	//if (testMyStringIO())cout << "MyString IO OK" << endl; else cout << "MyString IO failed" << endl;
+	//bzzb.run1();
+	bzzb.test1();
 	return 0;
 }
 
