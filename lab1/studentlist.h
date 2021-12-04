@@ -49,12 +49,12 @@ public:
 	void clear();
 	CAssociation operator+(const CAssociation& a);
 	student& operator[](const int idx);
-	CAssociation& read_txt(istream& in);
-	CAssociation& read_bin(istream& in);
+	CAssociation& read_txt(istream& in,CStudentList& S);
+	CAssociation& read_bin(istream& in,CStudentList& S);
 	void write_txt(ostream& o);
 	void write_bin(ostream& o);
 private:
-	//CAssociation(const CAssociation& a);
+	CAssociation(const CAssociation& a);
 	CAssociation& operator=(const CAssociation& a);
 	myString name;
 	CNode_Association* head;

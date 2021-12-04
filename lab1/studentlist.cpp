@@ -426,36 +426,44 @@ student& CAssociation::operator[](const int idx)
 	return *p->pstu;
 }
 
-CAssociation& CAssociation::read_txt(istream& in)
+CAssociation& CAssociation::read_txt(istream& in, CStudentList& S)
 {
 	clear();
 	name.read_txt(in);
 	int sum, i, flag;
-	student* p;
+	student* p, * t;
 	in >> sum;
 	for (i = 0; i < sum; i++) {
 		in >> flag;
 		if (flag == 1) p = new student;
 		else p = new CGraduate;
 		p->read_txt(in);
-		add(p);
+		t = S.get(p->number);
+		if (t) {
+			add(t);
+		}
+		delete p;
 	}
 	return *this;
 }
 
-CAssociation& CAssociation::read_bin(istream& in)
+CAssociation& CAssociation::read_bin(istream& in, CStudentList& S)
 {
 	clear();
 	name.read_bin(in);
 	int sum, i, flag;
-	student* p;
+	student* p, * t;
 	in.read((char*)&sum, sizeof(int));
 	for (i = 0; i < sum; i++) {
 		in.read((char*)&flag, sizeof(int));
 		if (flag == 1) p = new student;
 		else p = new CGraduate;
 		p->read_bin(in);
-		add(p);
+		t = S.get(p->number);
+		if (t) {
+			add(t);
+		}
+		delete p;
 	}
 	return *this;
 }
@@ -494,4 +502,8 @@ void CAssociation::write_bin(ostream& o)
 		p->pstu->write_bin(o);
 		p = p->next;
 	}
+}
+
+CAssociation::CAssociation(const CAssociation& a) {
+
 }

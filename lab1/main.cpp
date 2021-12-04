@@ -128,10 +128,10 @@ public:
 		out2.close();
 		CAssociation c("ff");
 		ifstream in1("bzzb.txt");
-		c.read_txt(in1);
+		c.read_txt(in1,a);
 		c.show();
 		ifstream in3("bzzb.dat");
-		c.read_bin(in3);
+		c.read_bin(in3,a);
 		c.show();
 	}
 };
